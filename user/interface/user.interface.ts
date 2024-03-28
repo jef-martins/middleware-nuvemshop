@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({name: 'user'})
 export class UserEntity{
@@ -14,4 +14,11 @@ export class UserEntity{
     phone: string;
     @Column({name: 'cpf', nullable: false})
     cpf: string;
+    @Column({name: 'type_user', nullable: false})
+    type_user: number;
+    @CreateDateColumn({name: 'created_at'})
+    created_at: Date;
+    @UpdateDateColumn({name: 'updated_at'})
+    updated_at: Date;
+    
 }
