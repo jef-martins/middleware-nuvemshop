@@ -3,13 +3,14 @@ import { UserModule } from '../user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from 'user/interface/user.interface';
+import { NuvemshopModule } from './nuvemshop/nuvemshop.module';
+import { HttpService } from './http-service/http-service.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env.development.local'],
     }),
-    UserModule,
     TypeOrmModule.forRoot({ 
       type: 'postgres',
       database: process.env.DB_DATABASE,
@@ -20,9 +21,11 @@ import { UserEntity } from 'user/interface/user.interface';
       entities: [UserEntity],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
       migrationsRun: true
-    })
+    }),
+    UserModule,
+    NuvemshopModule
   ],
   controllers: [],
-  providers: [],
+  providers: [HttpService],
 })
 export class AppModule {}
